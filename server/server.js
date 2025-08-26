@@ -11,24 +11,9 @@ const app = express();
 const PORT = process.env.PORT || 4000;
 connectDB();
 
-// CORS: allow provided frontend origin(s) and localhost; credentials for cookies
-const allowedOrigins = [
-    process.env.FRONTEND_ORIGIN, // e.g., https://ayursutra.vercel.app
-    "https://ayur-sutra-theta.vercel.app",
-    "http://localhost:5173"
-].filter(Boolean);
+const allowedOrigins = [process.env.CLIENT_URL || "https://ayur-sutra-theta.vercel.app"];
+app.use(cors({origin: allowedOrigins, credentials: true}));
 
-app.set('trust proxy', 1);
-
-app.use(cors({
-    origin: (origin, callback) => {
-        if (!origin) return callback(null, true); // allow server-to-server / curl
-        if (allowedOrigins.includes(origin)) return callback(null, true);
-        return callback(new Error('Not allowed by CORS'));
-    },
-    credentials: true
-}));
-app.use(express.json());
 app.use(cookieParser());
 
 app.get("/", (req, res) => {
