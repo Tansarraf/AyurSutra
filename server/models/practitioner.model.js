@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 const practitionerSchema = new mongoose.Schema({
   name: { type: String, required: true },
   email: { type: String, required: true, unique: true },
-  phone: { type: String, unique: true },
+  phone: { type: String},
   password: { type: String, required: true },
   specialization: { type: String, default: "General Ayurveda" },
   bio: { type: String, default: "" },
