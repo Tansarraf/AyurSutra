@@ -14,7 +14,7 @@ connectDB();
 // CORS: allow provided frontend origin(s) and localhost; credentials for cookies
 const allowedOrigins = [
     process.env.FRONTEND_ORIGIN, // e.g., https://ayursutra.vercel.app
-    "https://ayursutra.onrender.com",
+    "https://ayur-sutra-theta.vercel.app/",
     "http://localhost:5173"
 ].filter(Boolean);
 
