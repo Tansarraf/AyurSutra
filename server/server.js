@@ -11,9 +11,11 @@ const app = express();
 const PORT = process.env.PORT || 4000;
 connectDB();
 
-const allowedOrigins = [process.env.CLIENT_URL || "https://ayur-sutra-theta.vercel.app"];
+const allowedOrigins = ["https://ayur-sutra-theta.vercel.app"];
 app.use(cors({origin: allowedOrigins, credentials: true}));
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 app.get("/", (req, res) => {
