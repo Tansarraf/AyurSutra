@@ -11,7 +11,23 @@ const app = express();
 const PORT = process.env.PORT || 4000;
 connectDB();
 
-app.use(cors({ credentials: true, origin: ["https://ayursutra.onrender.com","http://localhost:5173"] }));
+// CORS: allow provided frontend origin(s) and localhost; credentials for cookies
+const allowedOrigins = [
+    process.env.FRONTEND_ORIGIN, // e.g., https://ayursutra.vercel.app
+    "https://ayursutra.onrender.com",
+    "http://localhost:5173"
+].filter(Boolean);
+
+app.set('trust proxy', 1);
+
+app.use(cors({
+    origin: (origin, callback) => {
+        if (!origin) return callback(null, true); // allow server-to-server / curl
+        if (allowedOrigins.includes(origin)) return callback(null, true);
+        return callback(new Error('Not allowed by CORS'));
+    },
+    credentials: true
+}));
 app.use(express.json());
 app.use(cookieParser());
 
