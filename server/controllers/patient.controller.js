@@ -6,27 +6,27 @@ import transporter from "../configs/nodemailer.config.js";
 // Patient Registration Controller Function
 export const registerPatient = async (req, res) => {
     try {
-        const {name, email, password, phone, age, gender} = req.body;
+        const { name, email, password } = req.body;
 
-        if(!name || !email || !password || !phone || !age || !gender){
-            return res.json({success: false, message: "Please provide all details..."});
+        if (!name || !email || !password) {
+            return res.json({ success: false, message: "Please provide all details..." });
         }
 
-        const user = await Patient.findOne({email});
+        const user = await Patient.findOne({ email });
 
-        if(user){
-            return res.json({success: false, message: "User already exists..."});
+        if (user) {
+            return res.json({ success: false, message: "User already exists..." });
         }
 
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        const newUser = await Patient.create({name, email, password: hashedPassword, phone, age, gender});
+        const newUser = await Patient.create({ name, email, password: hashedPassword });
 
         await newUser.save();
 
-        const token = jwt.sign({id: newUser._id}, process.env.JWT_SECRET, {expiresIn: '1d'});
+        const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET, { expiresIn: '1d' });
 
-        res.cookie("token", token, {httpOnly: true, secure: process.env.NODE_ENV==="production", sameSite: process.env.NODE_ENV==="production" ? "none":"strict", maxAge: 24*60*60*1000});
+        res.cookie("token", token, { httpOnly: true, secure: process.env.NODE_ENV === "production", sameSite: process.env.NODE_ENV === "production" ? "none" : "strict", maxAge: 24 * 60 * 60 * 1000 });
 
         const mailOptions = {
             from: process.env.SENDER_EMAIL,
@@ -61,57 +61,67 @@ export const registerPatient = async (req, res) => {
 
         await transporter.sendMail(mailOptions);
 
-        return res.json({success: true, message: "You've registered successfully!!!"})
+        return res.json({ success: true, message: "You've registered successfully!!!" })
     } catch (error) {
-        res.json({success: false, message: error.message});
+        res.json({ success: false, message: error.message });
     }
 }
 
 // Patient Login Controller Function
-export const loginPatient = async (req, res)=>{
+export const loginPatient = async (req, res) => {
     try {
-        const {email, password} = req.body;
+        const { email, password } = req.body;
 
-        if(!email || !password){
-            return res.json({success: false, message: "Email and Password is required!!!"});
+        if (!email || !password) {
+            return res.json({ success: false, message: "Email and Password is required!!!" });
         }
 
-        const user = await Patient.findOne({email});
-        if(!user){
-            return res.json({success: false, message: "User is not registerd!!!"});
+        const user = await Patient.findOne({ email });
+        if (!user) {
+            return res.json({ success: false, message: "User is not registerd!!!" });
         }
 
         const isMatched = await bcrypt.compare(password, user.password);
-        if(!isMatched){
-            return res.json({success: false, message: "Invalid Password!!!"});
+        if (!isMatched) {
+            return res.json({ success: false, message: "Invalid Password!!!" });
         }
 
-        const token = jwt.sign({id: user._id}, process.env.JWT_SECRET, {expiresIn: '1d'});
+        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1d' });
 
-        res.cookie("token", token, {httpOnly: true, secure: process.env.NODE_ENV==="production", sameSite: process.env.NODE_ENV==="production" ? "none":"strict", maxAge: 24*60*60*1000});
+        res.cookie("token", token, { httpOnly: true, secure: process.env.NODE_ENV === "production", sameSite: process.env.NODE_ENV === "production" ? "none" : "strict", maxAge: 24 * 60 * 60 * 1000 });
 
-        return res.json({success: true, message: "Login Successfull!!!"})
+        return res.json({ success: true, message: "Login Successfull!!!" })
     } catch (error) {
-        res.json({success: false, message: error.message});
+        res.json({ success: false, message: error.message });
     }
 }
 
-export const logoutPatient = async (req, res)=>{
+
+export const getPatientData = async (req, res)=>{
     try {
-        res.clearCookie("token", {
-            httpOnly: true, secure: process.env.NODE_ENV==="production", sameSite: process.env.NODE_ENV==="production" ? "none":"strict", maxAge: 24*60*60*1000
+        const userId = req.body;
+        const user = await User.findById(userId);
+
+        if(!user){
+            return res.json({success: false, message: "User not found"});
+        }
+
+        res.json({
+            success: true, 
+            userData:{
+                name: user.name,
+                email: user.email,
+                phone: user.phone,
+                age: user.age || "Not Set",
+                gender: user.gender || "Not Set",
+                address: user.address || "Not Set",
+                bloodGroup: user.bloodGroup || "Not Set",
+                allergies: user.allergies || "Not Set",
+                medicalHistory: user.medicalHistory || "no history found",
+                currentMedications: user.currentMedications || "No medications found",
+                therapySessions: user.therapySessions || "Not Set"
+            }
         })
-
-        return res.json({success: true, message: "Logged Out"});
-        
-    } catch (error) {
-        return res.json({success: false, message: error.message});
-    }
-}
-
-export const isPatientAuthenticated = async (req, res)=>{
-    try {
-        return res.json({success: true});
     } catch (error) {
         res.json({success: false, message: error.message});
     }
