@@ -21,8 +21,8 @@ const Navbar = () => {
     const navItems = [
         { name: 'Home', href: '/' },
         { name: 'Services', href: '/services' },
-        { name: 'About', href: '/about' },
         { name: 'Contact', href: '/contact' },
+        { name: 'Book Appointment', href: '/booking' },
     ];
 
     return (
@@ -41,14 +41,14 @@ const Navbar = () => {
                         whileHover={{ scale: 1.05 }}
                         className="flex items-center space-x-2"
                     >
-                        <div className="w-10 h-10 bg-gradient-to-br from-green-500 to-emerald-600 rounded-xl flex items-center justify-center">
+                        <div className="w-10 h-10 bg-gradient-to-br from-orange-500 to-orange-800 rounded-xl flex items-center justify-center">
                             <span className="text-white font-bold text-xl">🌿</span>
                         </div>
                         <span className={`font-bold text-xl lg:text-2xl transition-colors duration-300 ${isScrolled
                             ? 'text-gray-800'
-                            : 'bg-gradient-to-r from-green-400 to-white bg-clip-text text-transparent'
+                            : 'text-orange-600 bg-clip-text text-transparent'
                             }`}>
-                            AyurSutra
+                            PanchSetu
                         </span>
                     </motion.div>
 
@@ -64,13 +64,13 @@ const Navbar = () => {
                                 <Link
                                     to={item.href}
                                     className={`relative font-medium transition-colors duration-300 ${isScrolled
-                                        ? 'text-gray-700 hover:text-green-500'
-                                        : 'bg-gradient-to-r from-green-400 to-green-400 bg-clip-text text-transparent hover:opacity-90'
+                                        ? 'text-gray-700 hover:text-orange-400'
+                                        : 'text-black bg-clip-text text-transparent hover:opacity-90'
                                         }`}
                                 >
                                     {item.name}
                                     <motion.div
-                                        className="absolute -bottom-1 left-0 right-0 h-0.5 bg-green-500"
+                                        className="absolute -bottom-1 left-0 right-0 h-0.5 bg-orange-500"
                                         initial={{ scaleX: 0 }}
                                         whileHover={{ scaleX: 1 }}
                                         transition={{ duration: 0.3 }}
@@ -85,7 +85,7 @@ const Navbar = () => {
                                 <motion.div
                                     whileHover={{ scale: 1.05 }}
                                     whileTap={{ scale: 0.95 }}
-                                    className="w-10 h-10 bg-gradient-to-r from-green-500 to-emerald-600 rounded-full flex items-center justify-center text-white font-bold text-lg shadow-lg hover:shadow-xl transition-all duration-300"
+                                    className="w-10 h-10 bg-gradient-to-r from-orange-500 to-orange-600 rounded-full flex items-center justify-center text-white font-bold text-lg shadow-lg hover:shadow-xl transition-all duration-300"
                                     title={`${userData.name || userData.email} - Dashboard`}
                                 >
                                     {(userData.name || userData.email || 'U').charAt(0).toUpperCase()}
@@ -96,7 +96,7 @@ const Navbar = () => {
                                 <motion.button
                                     whileHover={{ scale: 1.05 }}
                                     whileTap={{ scale: 0.95 }}
-                                    className="bg-gradient-to-r from-green-500 to-emerald-600 text-white px-6 py-2 rounded-xl font-medium shadow-lg hover:shadow-xl transition-all duration-300"
+                                    className="bg-gradient-to-r from-orange-500 to-orange-600 text-white px-6 py-2 rounded-xl font-medium shadow-lg hover:shadow-xl transition-all duration-300"
                                 >
                                     Login
                                 </motion.button>
@@ -157,7 +157,7 @@ const Navbar = () => {
                                         <Link
                                             to={item.href}
                                             onClick={() => setIsMobileMenuOpen(false)}
-                                            className="block text-gray-700 font-medium hover:text-green-500 transition-colors duration-300"
+                                            className="block text-gray-700 font-medium hover:text-orange-500 transition-colors duration-300"
                                         >
                                             {item.name}
                                         </Link>
@@ -171,7 +171,7 @@ const Navbar = () => {
                                             transition={{ delay: navItems.length * 0.1 }}
                                             whileHover={{ scale: 1.05 }}
                                             whileTap={{ scale: 0.95 }}
-                                            className="w-full bg-gradient-to-r from-green-500 to-emerald-600 text-white px-6 py-3 rounded-xl font-medium shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center space-x-2"
+                                            className="w-full bg-gradient-to-r from-orange-400 to-orange-600 text-white px-6 py-3 rounded-xl font-medium shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center space-x-2"
                                         >
                                             <div className="w-6 h-6 bg-white/20 rounded-full flex items-center justify-center text-sm font-bold">
                                                 {(userData.name || userData.email || 'U').charAt(0).toUpperCase()}
@@ -187,7 +187,7 @@ const Navbar = () => {
                                             transition={{ delay: navItems.length * 0.1 }}
                                             whileHover={{ scale: 1.05 }}
                                             whileTap={{ scale: 0.95 }}
-                                            className="w-full bg-gradient-to-r from-green-500 to-emerald-600 text-white px-6 py-3 rounded-xl font-medium shadow-lg hover:shadow-xl transition-all duration-300"
+                                            className="w-full bg-gradient-to-r from-orange-500 to-orange-700 text-white px-6 py-3 rounded-xl font-medium shadow-lg hover:shadow-xl transition-all duration-300"
                                         >
                                             Get Started
                                         </motion.button>

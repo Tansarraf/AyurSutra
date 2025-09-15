@@ -241,7 +241,7 @@ const LoginPage = () => {
   }
 
   return (
-    <div className="w-full min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 font-sans relative overflow-hidden p-4">
+    <div className="w-full min-h-screen flex items-center justify-center bg-[#FFF8ED] font-sans relative overflow-hidden p-4">
       {/* Success Loader Overlay */}
       <AnimatePresence>
         {showSuccessLoader && (

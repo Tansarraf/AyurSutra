@@ -31,17 +31,17 @@ export const registerPatient = async (req, res) => {
         const mailOptions = {
             from: process.env.SENDER_EMAIL,
             to: email,
-            subject: "Welcome to AyurSutra – Your Wellness Journey Begins",
+            subject: "Welcome to PanchSetu – Your Wellness Journey Begins",
             html: `
                 <div style="font-family: Arial, sans-serif; line-height:1.6; color:#333;">
-                <h2 style="color:#2c7a7b;">Welcome to AyurSutra 🌿</h2>
+                <h2 style="color:#2c7a7b;">Welcome to PanchSetu 🌿</h2>
                 <p>Dear ${name || "User"},</p>
                 
-                <p>We’re delighted to welcome you to <strong>AyurSutra</strong> – your trusted companion for Panchakarma therapy and holistic wellness management.</p>
+                <p>We’re delighted to welcome you to <strong>PanchSetu</strong> – your trusted companion for Panchakarma therapy and holistic wellness management.</p>
                 
                 <p>Your account has been successfully created with the email ID: <strong>${email}</strong>.</p>
                 
-                <h3 style="color:#2c7a7b;">What you can do with AyurSutra:</h3>
+                <h3 style="color:#2c7a7b;">What you can do with PanchSetu:</h3>
                 <ul>
                     <li>📅 Schedule and track your Panchakarma therapy sessions with ease</li>
                     <li>🔔 Receive timely reminders for pre- and post-procedure precautions</li>
@@ -51,10 +51,10 @@ export const registerPatient = async (req, res) => {
                 
                 <p>We are committed to combining <em>traditional authenticity</em> with <em>modern efficiency</em> to support your wellness journey.</p>
                 
-                <p>If you have any questions, feel free to reach out to our support team at <a href="mailto:support@ayursutra.com">support@ayursutra.com</a>.</p>
+                <p>If you have any questions, feel free to reach out to our support team at <a href="mailto:support@panchsetu.com">support@panchsetu.com</a>.</p>
                 
                 <p style="margin-top:20px;">Wishing you health and wellness,</p>
-                <p><strong>The AyurSutra Team</strong></p>
+                <p><strong>The PanchSetu Team</strong></p>
                 </div>
             `
         };

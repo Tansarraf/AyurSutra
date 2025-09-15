@@ -11,15 +11,19 @@ const app = express();
 const PORT = process.env.PORT || 4000;
 connectDB();
 
-const allowedOrigins = ["https://ayur-sutra-theta.vercel.app"];
-app.use(cors({origin: allowedOrigins, credentials: true}));
+const allowedOrigins = [
+    "*",
+    "http://localhost:5173",
+    "http://127.0.0.1:5173"
+];
+app.use(cors({ origin: allowedOrigins, credentials: true }));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 app.get("/", (req, res) => {
-    res.send("Welcome to AyurSutra");
+    res.send("Welcome to PanchSetu");
 })
 app.use("/api/auth", patientRouter);
 app.use("/api/common", commonRouter);
